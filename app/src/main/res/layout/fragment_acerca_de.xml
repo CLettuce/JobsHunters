@@ -46,7 +46,7 @@
                 android:layout_width="388dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:fontFamily="@font/open_sans_light"
+                android:fontFamily=""
                 android:paddingTop="15dp"
                 android:text="JobsHunters es una plataforma de busqueda de empleos y pasantias digirida a los estudiantes de la Universidad de Managua (UdeM). Con ella, los estudiantes podran buscar ofertas de trabajo, y ademas, van a poder adquirir conocimientos acerca de la busqueda de empleos en la seccion de recursos de aprendizaje ofrecida por la aplicacion."
                 android:textColor="#524B6B"
@@ -66,7 +66,7 @@
                 android:layout_width="388dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:fontFamily="@font/open_sans_light"
+                android:fontFamily=""
                 android:paddingTop="15dp"
                 android:text="El código fuente de la aplicación móvil JobsHunters es de código abierto con la licencia de software MIT. Puedes ver el código, modificarlo y redistribuirlo. El URL del repositorio del código es este https://github.com/CLettuce/JobsHunters"
                 android:textColor="#524B6B"
@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                app:cardBackgroundColor="#99FFFFFF"
+                app:cardBackgroundColor="#DDDDE2"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp">
 
@@ -121,7 +121,8 @@
                     android:paddingTop="25sp"
                     android:text="Analista y desarrollador de software\nCorreo: passipan02@gmail.com\nGithub: https://github.com/CLettuce"
                     android:textColor="#303A52"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:linksClickable="true"/>
 
 
             </androidx.cardview.widget.CardView>
@@ -131,8 +132,7 @@
                 android:layout_margin="5dp"
                 app:cardElevation="5dp"
                 app:cardCornerRadius="5dp"
-                app:cardBackgroundColor="#99FFFFFF"
-                >
+                app:cardBackgroundColor="#DDDDE2" >
 
 
                 <ImageView
@@ -159,7 +159,8 @@
                     android:paddingTop="25sp"
                     android:text="Analista y desarrollador de software\nCorreo: egarciavalle2014@gmail.com\nGithub: https://github.com/Edwing123"
                     android:textColor="#303A52"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:linksClickable="true"/>
 
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
@@ -168,8 +169,7 @@
                 android:layout_margin="5dp"
                 app:cardElevation="5dp"
                 app:cardCornerRadius="5dp"
-                app:cardBackgroundColor="#99FFFFFF"
-               >
+                app:cardBackgroundColor="#DDDDE2">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -196,6 +196,7 @@
                     android:paddingTop="25sp"
                     android:textSize="15sp"
                     android:textColor="#303A52"
+                    android:linksClickable="true"
                     android:text="Analista y desarrollador de software\nCorreo:elias.castillo2016374@udem.edu.ni\n"/>
 
             </androidx.cardview.widget.CardView>
@@ -205,8 +206,7 @@
                 android:layout_margin="5dp"
                 app:cardElevation="5dp"
                 app:cardCornerRadius="5dp"
-                app:cardBackgroundColor="#99FFFFFF"
-                >
+                app:cardBackgroundColor="#DDDDE2">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -232,6 +232,7 @@
                     android:paddingTop="25sp"
                     android:textSize="15sp"
                     android:textColor="#303A52"
+                    android:linksClickable="true"
                     android:text="Analista y desarrollador de software\nCorreo: enmanuel.olivas202889@udem.edu.ni"/>
 
             </androidx.cardview.widget.CardView>
@@ -241,7 +242,8 @@
                 android:layout_margin="5dp"
                 app:cardElevation="5dp"
                 app:cardCornerRadius="5dp"
-                app:cardBackgroundColor="#99FFFFFF">
+                app:cardBackgroundColor="#DDDDE2"
+                >
 
                 <ImageView
                     android:layout_width="wrap_content"
