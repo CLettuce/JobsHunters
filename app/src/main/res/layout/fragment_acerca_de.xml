@@ -45,12 +45,13 @@
             <TextView
                 android:layout_width="388dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal"
                 android:fontFamily=""
                 android:paddingTop="15dp"
                 android:text="JobsHunters es una plataforma de busqueda de empleos y pasantias digirida a los estudiantes de la Universidad de Managua (UdeM). Con ella, los estudiantes podran buscar ofertas de trabajo, y ademas, van a poder adquirir conocimientos acerca de la busqueda de empleos en la seccion de recursos de aprendizaje ofrecida por la aplicacion."
                 android:textColor="#524B6B"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                />
 
             <TextView
                 android:layout_width="match_parent"

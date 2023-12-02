@@ -6,17 +6,21 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/titleTextView"
+        android:id="@+id/txtTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:padding="8dp"/>
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:text="TITULO"/>
 
     <TextView
-        android:id="@+id/descriptionTextView"
+        android:id="@+id/txtDescripcion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:padding="8dp"/>
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:text="Descripcion"/>
 </LinearLayout>

@@ -34,7 +34,7 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerBox"
+        android:id="@+id/rv_mostarApi"
         android:layout_width="353dp"
         android:layout_height="544dp"
         app:flow_horizontalBias="0.5"

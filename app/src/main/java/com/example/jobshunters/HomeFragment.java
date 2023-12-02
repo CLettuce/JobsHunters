@@ -1,24 +1,28 @@
 package com.example.jobshunters;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.jobshunters.Model.Offer;
 import com.example.jobshunters.adapter.OfferAdapter;
 import com.example.jobshunters.network.ApiClient;
 import com.example.jobshunters.network.ApiJobs;
+import com.example.jobshunters.network.OfferResponse;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 
 public class HomeFragment extends Fragment {
 
@@ -27,45 +31,46 @@ public class HomeFragment extends Fragment {
     private OfferAdapter offerAdapter;
 
     public HomeFragment() {
-        // Required empty public constructor
-    }
-
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        recyclerView = view.findViewById(R.id.recyclerBox);
+
+        recyclerView = view.findViewById(R.id.rv_mostarApi);
         recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
-        showOffer();
+
+        showOffers();
         return view;
     }
 
-    public void showOffer(){
-        Call<List<Offer>> call = ApiClient.getClient().create(ApiJobs.class).getOffer();
-        call.enqueue(new Callback<List<Offer>>() {
+    public void showOffers(){
+        ApiJobs apiService = ApiClient.getClient().create(ApiJobs.class);
+        Call<OfferResponse> call = apiService.getOffer();
+        call.enqueue(new Callback<OfferResponse>() {
             @Override
-            public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
-                if(response.isSuccessful()){
-                    offers = response.body();
-                    offerAdapter = new OfferAdapter(offers, requireContext());
-                    recyclerView.setAdapter(offerAdapter);
+            public void onResponse(Call<OfferResponse> call, Response<OfferResponse> response) {
+                if(response.isSuccessful() && response.body() != null){
+                    OfferResponse offerResponse = response.body();
+                    List<Offer> offers = offerResponse.getOffers();
+                    if (getContext() != null) {
+                        offerAdapter = new OfferAdapter(offers, requireContext());
+                        recyclerView.setAdapter(offerAdapter);
+                    }
                 }
             }
-
             @Override
-            public void onFailure(Call<List<Offer>> call, Throwable t) {
+            public void onFailure(Call<OfferResponse> call, Throwable t) {
                 if (getContext() != null) {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-
 }

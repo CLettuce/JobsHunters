@@ -1,29 +1,10 @@
 package com.example.jobshunters.Model;
 
 public class Offer {
-    private int id;
+
     private String title;
+    private String company;
     private String description;
-
-    // Constructor vacío (necesario para procesar objetos con Gson en Retrofit)
-    public Offer() {
-    }
-
-    // Constructor con parámetros
-    public Offer(int id, String title, String description) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-    }
-
-    // Getters y setters (necesarios para Gson)
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -31,6 +12,14 @@ public class Offer {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     public String getDescription() {
