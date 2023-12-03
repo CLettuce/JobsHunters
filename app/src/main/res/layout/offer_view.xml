@@ -25,7 +25,7 @@
                 android:id="@+id/imageViewProfile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/carlos"
+                android:src="@drawable/malettin"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
