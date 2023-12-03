@@ -23,12 +23,15 @@ public class OfferAdapter  extends RecyclerView.Adapter<OfferAdapter.ViewHolder>
         this.offers = offers;
         this.context = context;
     }
-
+    public void filterList(List<Offer> filteredOffers) {
+        this.offers = filteredOffers;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_offer, parent,false);
+                .inflate(R.layout.offer_view, parent,false);
         return new ViewHolder(view);
     }
 
@@ -36,6 +39,7 @@ public class OfferAdapter  extends RecyclerView.Adapter<OfferAdapter.ViewHolder>
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.titulo.setText(offers.get(position).getCompany());
         holder.descripcion.setText(offers.get(position).getDescription());
+        holder.company.setText(offers.get(position).getTitle());
     }
 
     @Override
@@ -46,10 +50,12 @@ public class OfferAdapter  extends RecyclerView.Adapter<OfferAdapter.ViewHolder>
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView titulo;
         private TextView descripcion;
+        private TextView company;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            titulo = itemView.findViewById(R.id.txtTitulo);
-            descripcion = itemView.findViewById(R.id.txtDescripcion);
+            titulo = itemView.findViewById(R.id.txtTittle);
+            descripcion = itemView.findViewById(R.id.txtDescrip);
+            company = itemView.findViewById(R.id.txtEmprese);
         }
     }
 }

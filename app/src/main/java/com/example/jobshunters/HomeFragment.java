@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +17,9 @@ import com.example.jobshunters.adapter.OfferAdapter;
 import com.example.jobshunters.network.ApiClient;
 import com.example.jobshunters.network.ApiJobs;
 import com.example.jobshunters.network.OfferResponse;
+import androidx.appcompat.widget.SearchView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,9 +29,12 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
+
     private List<Offer> offers;
+    private List<Offer> filteredOffers;
     private RecyclerView recyclerView;
     private OfferAdapter offerAdapter;
+    private SearchView searchView;
 
     public HomeFragment() {
     }
@@ -44,7 +50,21 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         recyclerView = view.findViewById(R.id.rv_mostarApi);
-        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 1));
+
+        searchView = view.findViewById(R.id.searchBox);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return true;
+            }
+        });
 
         showOffers();
         return view;
@@ -58,10 +78,14 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<OfferResponse> call, Response<OfferResponse> response) {
                 if(response.isSuccessful() && response.body() != null){
                     OfferResponse offerResponse = response.body();
-                    List<Offer> offers = offerResponse.getOffers();
+                    offers = offerResponse.getOffers();
                     if (getContext() != null) {
-                        offerAdapter = new OfferAdapter(offers, requireContext());
-                        recyclerView.setAdapter(offerAdapter);
+                        if(offerAdapter == null){
+                            offerAdapter = new OfferAdapter(offers, requireContext());
+                            recyclerView.setAdapter(offerAdapter);
+                        } else {
+                            offerAdapter.filterList(offers);
+                        }
                     }
                 }
             }
@@ -73,4 +97,25 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+    private void filter(String text) {
+        filteredOffers = new ArrayList<>();
+
+        if (text.isEmpty()) {
+            filteredOffers.addAll(offers);
+        } else {
+            for (Offer offer : offers) {
+                if (offer.getTitle().toLowerCase().contains(text.toLowerCase()) ||
+                        offer.getCompany().toLowerCase().contains(text.toLowerCase()) ||
+                        offer.getDescription().toLowerCase().contains(text.toLowerCase())) {
+                    filteredOffers.add(offer);
+                }
+            }
+        }
+
+        if (offerAdapter != null) {
+            offerAdapter.filterList(filteredOffers);
+        }
+    }
+
 }

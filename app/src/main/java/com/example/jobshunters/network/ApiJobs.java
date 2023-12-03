@@ -10,5 +10,5 @@ import retrofit2.http.GET;
 
 public interface ApiJobs {
     @GET("api/v1/offers")
-    Call<OfferResponse> getOffer(); // Cambiado de getOffers a getOffer
+    Call<OfferResponse> getOffer(); //
 }
