@@ -53,6 +53,8 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 1));
 
         searchView = view.findViewById(R.id.searchBox);
+
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -107,7 +109,7 @@ public class HomeFragment extends Fragment {
             for (Offer offer : offers) {
                 if (offer.getTitle().toLowerCase().contains(text.toLowerCase()) ||
                         offer.getCompany().toLowerCase().contains(text.toLowerCase()) ||
-                        offer.getDescription().toLowerCase().contains(text.toLowerCase())) {
+                        offer.getRole().toLowerCase().contains(text.toLowerCase())) {
                     filteredOffers.add(offer);
                 }
             }
