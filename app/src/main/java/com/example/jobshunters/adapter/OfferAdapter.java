@@ -1,6 +1,7 @@
 package com.example.jobshunters.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +14,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.jobshunters.Model.Offer;
 import com.example.jobshunters.R;
+import com.example.jobshunters.offer_detail;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class OfferAdapter  extends RecyclerView.Adapter<OfferAdapter.ViewHolder> {
 
+    private OnItemClickListener onItemClickListener;
     private List<Offer> offers;
     private Context context;
 
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
     public OfferAdapter(List<Offer> offers, Context context) {
         this.offers = offers != null ? offers : new ArrayList<>();
         this.context = context;
@@ -40,17 +50,32 @@ public class OfferAdapter  extends RecyclerView.Adapter<OfferAdapter.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        holder.titulo.setText(offers.get(position).getTitle());
-        holder.company.setText(offers.get(position).getCompany());
-        holder.roles.setText(offers.get(position).getRole());
-        Glide.with(context).load(offers.get(position).getCompany_logo_url()).into(holder.imagen);
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        holder.titulo.setText(offers.get(holder.getAdapterPosition()).getTitle());
+        holder.company.setText(offers.get(holder.getAdapterPosition()).getCompany());
+        holder.roles.setText(offers.get(holder.getAdapterPosition()).getRole());
+        Glide.with(context).load(offers.get(holder.getAdapterPosition()).getCompany_logo_url()).into(holder.imagen);
 
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
         layoutParams.setMargins(16, 16, 16, 16); // Establece tus márgenes aquí
         holder.itemView.setLayoutParams(layoutParams);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, offer_detail.class);
+
+                // Si deseas pasar información a la actividad OfferDetailActivity, aquí es donde puedes hacerlo.
+                // Por ejemplo, si necesitas pasar el ID de la oferta:
+                int offerId = offers.get(holder.getAdapterPosition()).getId();
+                intent.putExtra("offer_id", offerId);
+
+                // Iniciar la actividad
+                context.startActivity(intent);
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {
