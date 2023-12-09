@@ -1,5 +1,6 @@
 package com.example.jobshunters;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,6 +99,28 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (offerAdapter != null) {
+            offerAdapter.setOnItemClickListener(new OfferAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    // Obtener el ID de la oferta o cualquier dato relevante para abrir la nueva actividad
+                    Offer selectedOffer = offers.get(position);
+                    int offerId = selectedOffer.getId();
+
+                    // Crear un Intent para abrir la actividad_offer_deail.xml
+                    Intent intent = new Intent(requireContext(), offer_detail.class);
+                    intent.putExtra("offer_id", offerId);
+                    startActivity(intent);
+                }
+            });
+        }
+
     }
 
     private void filter(String text) {
