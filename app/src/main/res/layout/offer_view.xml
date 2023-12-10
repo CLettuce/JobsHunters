@@ -17,7 +17,7 @@
         app:cardElevation="4dp"
         tools:ignore="MissingConstraints"
 
-        app:cardBackgroundColor="#E3E5E6"
+        app:cardBackgroundColor="#4C3A98"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,6 +45,7 @@
                 android:maxLines="2"
                 android:ellipsize="end"
                 app:autoSizeTextType="uniform"
+                android:textColor="@color/white"
                 app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
                 app:layout_constraintTop_toTopOf="@+id/imageViewProfile"
                 android:layout_marginStart="8dp"
@@ -62,6 +63,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtTittle"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="8dp"
+                android:textColor="@color/white"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"/>
 
@@ -73,6 +75,7 @@
                 app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
                 app:layout_constraintTop_toBottomOf="@+id/txtRole"
                 android:layout_marginStart="8dp"
+                android:textColor="@color/white"
                 android:layout_marginTop="4dp"/>
 
             

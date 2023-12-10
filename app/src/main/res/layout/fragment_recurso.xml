@@ -1,89 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecursoFragment">
+    android:background="#DDDDE2">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never"
-        android:scrollbars="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif-light"
-            android:paddingTop="30dp"
-            android:text="Recuso de Aprendizaje"
-            android:textAlignment="center"
-            android:textColor="#392884"
-            android:textSize="23sp"
-            android:textStyle="bold" />
-            <TextView
-                android:layout_width="388dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily=""
-                android:paddingTop="15dp"
-                android:text="Paso 1: Lista tu formación principal y complementaria."
-                android:textColor="#524B6B"
-                android:textSize="16sp"
-                />
-            <TextView
-                android:layout_width="388dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily=""
-                android:paddingTop="15dp"
-                android:text="Mi primer consejo es que, para evitar el bloqueo, no empieces redactando tu currículum vitae sin experiencia laboral desde cero. Toma varias hojas en blanco y, en la primera, escribe tu formación. 
-Lista todo, tal como vaya viniendo a tu mente. Al final, organiza estos datos en dos grupos:
-Formaciones con titulación relevante (escuela, universidad, posgrados y otros cursos de especialización con título oficial);
-Cursos y congresos relacionados que aporten valor complementario (por ejemplo, cursos de idiomas, de informática, etc.)."
-                android:textColor="#524B6B"
-                android:textSize="16sp"
-                />
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:queryHint="Qué buscas?"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="invisible"/>
 
-            <TextView
-                android:layout_width="388dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily=""
-                android:paddingTop="15dp"
-                android:text="Paso 2: Define tus habilidades y capacidades"
-                android:textColor="#524B6B"
-                android:textSize="16sp"
-                />
-            <TextView
-                android:layout_width="388dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily=""
-                android:paddingTop="15dp"
-                android:text="Otra estrategia efectiva que puedes utilizar a la hora de hacer un currículum sin experiencia laboral es centrarte en tus aptitudes, ya que así le darás al reclutador una mejor idea sobre lo que puede esperar de ti.
-"
-                android:textColor="#524B6B"
-                android:textSize="16sp"
-                /><TextView
-                android:layout_width="388dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily=""
-                android:paddingTop="15dp"
-                android:text="Para ello, toma otra hoja de papel y haz una nueva lista.
-Algunos ejemplos de capacidades y habilidades en un currículum sin experiencia, que suelen ser muy bien valorados, son: trabajo en equipo, adaptación al cambio, compromiso, capacidad crítica, actitud positiva, proactividad, entre muchas otras."
-                android:textColor="#524B6B"
-                android:textSize="16sp"
-                />
-        </LinearLayout>
-    </ScrollView>
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_mostrarRecurso"
+        android:layout_width="381dp"
+        android:layout_height="588dp"
+        android:layout_marginBottom="72dp"
+        app:flow_horizontalBias="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,65 +1,126 @@
-
 package com.example.jobshunters;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RecursoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.jobshunters.Model.Resources;
+import com.example.jobshunters.adapter.ResourcesAdapter;
+import com.example.jobshunters.network.ApiClient;
+import com.example.jobshunters.network.ApiJobs;
+import com.example.jobshunters.network.ResourcesResponse;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+
 public class RecursoFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private List<Resources> resources;
+    private List<Resources> filteredResources;
+    private RecyclerView recyclerView;
+    private ResourcesAdapter resourcesAdapter;
+    private SearchView searchView;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public RecursoFragment() {
-        // Required empty public constructor
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RecursoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RecursoFragment newInstance(String param1, String param2) {
-        RecursoFragment fragment = new RecursoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_recurso, container, false);
+
+        recyclerView = view.findViewById(R.id.rv_mostrarRecurso);
+        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 1));
+        searchView = view.findViewById(R.id.searchBox);
+
+
+        ShowResources();
+        return view;
+    }
+
+    public void ShowResources(){
+        ApiJobs apiService = ApiClient.getClient().create(ApiJobs.class);
+        Call<ResourcesResponse> call = apiService.getResource();
+
+        call.enqueue(new Callback<ResourcesResponse>() {
+            @Override
+            public void onResponse(Call<ResourcesResponse> call, Response<ResourcesResponse> response) {
+                if(response.isSuccessful() && response.body() != null){
+                    ResourcesResponse resourcesResponse = response.body();
+                    resources = resourcesResponse.getResources();
+                    if (getContext() != null){
+                        if(resourcesAdapter == null){
+                            resourcesAdapter = new ResourcesAdapter(resources, requireContext());
+                            recyclerView.setAdapter(resourcesAdapter);
+                        }else {
+                            resourcesAdapter.filterList(resources);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResourcesResponse> call, Throwable t) {
+                if (getContext() != null) {
+                    Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if(resourcesAdapter != null){
+            resourcesAdapter.setOnItemClickListener(new ResourcesAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    Resources selectedResource = resources.get(position);
+                    int resourceId = selectedResource.getId();
+
+                    Intent intent = new Intent(requireContext(), resources_detail.class);
+                    intent.putExtra("resource_id",resourceId);
+                    startActivity(intent);
+                }
+            });
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recurso, container, false);
+    private void filter (String text){
+        filteredResources = new ArrayList<>();
+
+        if (text.isEmpty()) {
+            filteredResources.addAll(resources);
+        } else {
+            for (Resources resource : resources) {
+                if (resource.getTitle().toLowerCase().contains(text.toLowerCase()) ||
+                        resource.getAuthor().toLowerCase().contains(text.toLowerCase())) {
+                    filteredResources.add(resource);
+                }
+            }
+        }
+
+        if (resourcesAdapter != null) {
+            resourcesAdapter.filterList(filteredResources);
+        }
     }
 }

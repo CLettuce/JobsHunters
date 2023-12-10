@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AcercaDeFragment">
+    tools:context=".AcercaDeFragment"
+    android:background="#DDDDE2">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -93,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                app:cardBackgroundColor="#DDDDE2"
+                app:cardBackgroundColor="#4C3A98"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp">
 
@@ -102,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:elevation="3dp"
-                    android:src="@drawable/carlos" />
+                    android:src="@drawable/carlosprofi" />
 
 
                 <TextView
@@ -111,7 +112,7 @@
                     android:layout_gravity="center"
                     android:paddingLeft="90dp"
                     android:text="Carlos R. López"
-                    android:textColor="#303A52"
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -120,8 +121,8 @@
                     android:layout_height="match_parent"
                     android:paddingLeft="90dp"
                     android:paddingTop="25sp"
-                    android:text="Analista y desarrollador de software\nCorreo: passipan02@gmail.com\nGithub: https://github.com/CLettuce"
-                    android:textColor="#303A52"
+                    android:text="Developer FullStack\nCorreo: passipan02@gmail.com\nGithub: https://github.com/CLettuce"
+                    android:textColor="@color/white"
                     android:textSize="15sp"
                     android:linksClickable="true"/>
 
@@ -133,7 +134,7 @@
                 android:layout_margin="5dp"
                 app:cardElevation="5dp"
                 app:cardCornerRadius="5dp"
-                app:cardBackgroundColor="#DDDDE2" >
+                app:cardBackgroundColor="#4C3A98" >
 
 
                 <ImageView
@@ -150,18 +151,18 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_gravity="center"
-                    android:textColor="#303A52"
+                    android:textColor="@color/white"
                     android:text="Edwin García"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:linksClickable="true"
                     android:paddingLeft="90dp"
                     android:paddingTop="25sp"
                     android:text="Analista y desarrollador de software\nCorreo: egarciavalle2014@gmail.com\nGithub: https://github.com/Edwing123"
-                    android:textColor="#303A52"
-                    android:textSize="15sp"
-                    android:linksClickable="true"/>
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
 
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
@@ -170,7 +171,7 @@
                 android:layout_margin="5dp"
                 app:cardElevation="5dp"
                 app:cardCornerRadius="5dp"
-                app:cardBackgroundColor="#DDDDE2">
+                app:cardBackgroundColor="#4C3A98">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -188,7 +189,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_gravity="center"
-                    android:textColor="#303A52"
+                    android:textColor="@color/white"
                     android:text="Elías Castillo"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -196,7 +197,7 @@
                     android:paddingLeft="90dp"
                     android:paddingTop="25sp"
                     android:textSize="15sp"
-                    android:textColor="#303A52"
+                    android:textColor="@color/white"
                     android:linksClickable="true"
                     android:text="Analista y desarrollador de software\nCorreo:elias.castillo2016374@udem.edu.ni\n"/>
 
@@ -207,7 +208,7 @@
                 android:layout_margin="5dp"
                 app:cardElevation="5dp"
                 app:cardCornerRadius="5dp"
-                app:cardBackgroundColor="#DDDDE2">
+                app:cardBackgroundColor="#4C3A98">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -224,7 +225,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_gravity="center"
-                    android:textColor="#303A52"
+                    android:textColor="@color/white"
                     android:text="Enmanuel Olivas"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -232,7 +233,7 @@
                     android:paddingLeft="90dp"
                     android:paddingTop="25sp"
                     android:textSize="15sp"
-                    android:textColor="#303A52"
+                    android:textColor="@color/white"
                     android:linksClickable="true"
                     android:text="Analista y desarrollador de software\nCorreo: enmanuel.olivas202889@udem.edu.ni"/>
 
@@ -243,7 +244,7 @@
                 android:layout_margin="5dp"
                 app:cardElevation="5dp"
                 app:cardCornerRadius="5dp"
-                app:cardBackgroundColor="#DDDDE2"
+                app:cardBackgroundColor="#4C3A98"
                 >
 
                 <ImageView
@@ -261,15 +262,15 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_gravity="center"
-                    android:textColor="#303A52"
-                    android:text="Sherk"/>
+                    android:textColor="@color/white"
+                    android:text="Kenroy Norori"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="90dp"
                     android:paddingTop="25sp"
                     android:textSize="15sp"
-                    android:textColor="#303A52"
+                    android:textColor="@color/white"
                     android:text="Analista y desarrollador de software\nCorreo: kenmayorga12@gmail.com\nGithub: https://github.com/AlexNorori"/>
 
             </androidx.cardview.widget.CardView>

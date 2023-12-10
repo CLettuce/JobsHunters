@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".resources_detail"
+            android:exported="false" />
+        <activity
             android:name=".offer_detail"
             android:exported="false" />
         <activity
