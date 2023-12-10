@@ -1,64 +1,112 @@
 package com.example.jobshunters;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FavoritosFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.jobshunters.Model.Offer;
+import com.example.jobshunters.adapter.OfferAdapter;
+import com.example.jobshunters.network.ApiClient;
+import com.example.jobshunters.network.ApiJobs;
+import com.example.jobshunters.network.OfferResponse;
+
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+
 public class FavoritosFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recyclerView;
+    private OfferAdapter offerAdapter;
+    private List<Offer> allOffers;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public FavoritosFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FavoritosFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FavoritosFragment newInstance(String param1, String param2) {
-        FavoritosFragment fragment = new FavoritosFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favoritos, container, false);
+        View view = inflater.inflate(R.layout.fragment_favoritos, container, false);
+
+        recyclerView = view.findViewById(R.id.rv_mostrarFavorito);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        getAllOffersFromApi(); // Obtener todas las ofertas de la API
+
+        return view;
+    }
+
+    private void getAllOffersFromApi() {
+        Retrofit retrofit = ApiClient.getClient();
+        ApiJobs apiJobs = retrofit.create(ApiJobs.class);
+        Call<OfferResponse> call = apiJobs.getOffer();
+
+        call.enqueue(new Callback<OfferResponse>() {
+            @Override
+            public void onResponse(Call<OfferResponse> call, Response<OfferResponse> response) {
+                if (response.isSuccessful()) {
+                    OfferResponse offerResponse = response.body();
+                    if (offerResponse != null) {
+                        allOffers = offerResponse.getOffers();
+                        List<Offer> favoritedOffers = getFavoritedOffers(allOffers);
+                        displayFavoritedOffers(favoritedOffers);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OfferResponse> call, Throwable t) {
+                // Manejar la falla al obtener las ofertas
+            }
+        });
+    }
+    private List<Offer> getFavoritedOffers(List<Offer> allOffers) {
+        Set<String> favoritedOfferIds = getFavoritedOfferIds();
+
+        List<Offer> favoritedOffers = new ArrayList<>();
+
+        for (Offer offer : allOffers) {
+            if (favoritedOfferIds.contains(String.valueOf(offer.getId()))) {
+                favoritedOffers.add(offer);
+            }
+        }
+        return favoritedOffers;
+    }
+
+    private Set<String> getFavoritedOfferIds() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("Favoritos", Context.MODE_PRIVATE);
+        return sharedPreferences.getStringSet("favorited_ids", new HashSet<>());
+    }
+
+    private void displayFavoritedOffers(List<Offer> favoritedOffers) {
+        offerAdapter = new OfferAdapter(favoritedOffers, requireContext());
+        recyclerView.setAdapter(offerAdapter);
     }
 }
